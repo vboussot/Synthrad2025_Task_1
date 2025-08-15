@@ -88,11 +88,16 @@ class SynthradAlgorithm():
     def prepareData(self):
         images = _load_cases(folder=self.input_path, file_loader=self.file_loader)
         masks = _load_cases(folder=self.mask_path, file_loader=self.file_loader)
-        
+        with open(self.region_path, "r") as f:
+            region = json.load(f)
+        if region == "Head and Neck":
+            region = "HN"
+        else:
+            region = "AB"
+
         dataset = Dataset("./Dataset/", "mha")
         for image_path, mask_pah in zip(images, masks):
             image, image_name = _load_input_image(image_path, file_loader=self.file_loader)
-            region = image_name.name[1:3]
             self.images_file_paths[image_name.name] = {}
             self.images_file_paths[image_name.name]["image"] = image_name
             mask, self.images_file_paths[image_name.name]["mask"] = _load_input_image(mask_pah, file_loader=self.file_loader)
@@ -124,7 +129,9 @@ class SynthradAlgorithm():
 if __name__ == "__main__":
     algorithm = SynthradAlgorithm()
     algorithm.prepareData()
-    os.system("konfai PREDICTION -y --gpu 0 --config Checkpoints/AB-TH/Prediction.yml --MODEL Checkpoints/AB-TH/CV_0.pt:Checkpoints/AB-TH/CV_1.pt:Checkpoints/AB-TH/CV_2.pt:Checkpoints/AB-TH/CV_3.pt:Checkpoints/AB-TH/CV_4.pt")
-    os.system("konfai PREDICTION -y --gpu 0 --config Checkpoints/HN/Prediction.yml --MODEL Checkpoints/HN/CV_0.pt:Checkpoints/HN/CV_1.pt:Checkpoints/HN/CV_2.pt:Checkpoints/HN/CV_3.pt:Checkpoints/HN/CV_4.pt")
+    if os.path.exists("./Dataset/AB/"):
+        os.system("konfai PREDICTION -y --gpu 0 --config Checkpoints/AB-TH/Prediction.yml --MODEL Checkpoints/AB-TH/CV_0.pt:Checkpoints/AB-TH/CV_1.pt:Checkpoints/AB-TH/CV_2.pt:Checkpoints/AB-TH/CV_3.pt:Checkpoints/AB-TH/CV_4.pt")
+    if os.path.exists("./Dataset/HN/"):
+        os.system("konfai PREDICTION -y --gpu 0 --config Checkpoints/HN/Prediction.yml --MODEL Checkpoints/HN/CV_0.pt:Checkpoints/HN/CV_1.pt:Checkpoints/HN/CV_2.pt:Checkpoints/HN/CV_3.pt:Checkpoints/HN/CV_4.pt")
     algorithm.save()
     
