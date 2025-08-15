@@ -92,8 +92,10 @@ class SynthradAlgorithm():
             region = json.load(f)
         if region == "Head and Neck":
             region = "HN"
-        else:
+        elif region == "Abdomen":
             region = "AB"
+        elif region == "Thorax":
+            region = "TH"
 
         dataset = Dataset("./Dataset/", "mha")
         for image_path, mask_pah in zip(images, masks):
