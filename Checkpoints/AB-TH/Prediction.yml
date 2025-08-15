@@ -51,7 +51,7 @@ Predictor:
     dataset_filenames:
     - ./Dataset/AB:a:mha
     use_cache: false
-    batch_size: 16
+    batch_size: 32
   outputs_dataset:
     Head:Tanh:
       OutputDataset:
