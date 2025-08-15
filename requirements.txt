@@ -1,0 +1,8 @@
+evalutils==0.3.1
+SimpleITK
+scikit-learn
+numpy
+scipy
+python-dotenv
+konfai==1.2.2
+segmentation_models_pytorch
