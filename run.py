@@ -129,9 +129,9 @@ class SynthradAlgorithm():
 if __name__ == "__main__":
     algorithm = SynthradAlgorithm()
     algorithm.prepareData()
-    if os.path.exists("./Dataset/AB/"):
-        os.system("konfai PREDICTION -y --gpu 0 --config Checkpoints/AB-TH/Prediction.yml --MODEL Checkpoints/AB-TH/CV_0.pt:Checkpoints/AB-TH/CV_1.pt:Checkpoints/AB-TH/CV_2.pt:Checkpoints/AB-TH/CV_3.pt:Checkpoints/AB-TH/CV_4.pt")
+    if os.path.exists("./Dataset/AB/") or os.path.exists("./Dataset/TH/"):
+        os.system("konfai PREDICTION -y --cpu 0 --gpu 0 --num_workers 0 --config Checkpoints/AB-TH/Prediction.yml --MODEL Checkpoints/AB-TH/CV_0.pt:Checkpoints/AB-TH/CV_1.pt:Checkpoints/AB-TH/CV_2.pt:Checkpoints/AB-TH/CV_3.pt:Checkpoints/AB-TH/CV_4.pt")
     if os.path.exists("./Dataset/HN/"):
-        os.system("konfai PREDICTION -y --gpu 0 --config Checkpoints/HN/Prediction.yml --MODEL Checkpoints/HN/CV_0.pt:Checkpoints/HN/CV_1.pt:Checkpoints/HN/CV_2.pt:Checkpoints/HN/CV_3.pt:Checkpoints/HN/CV_4.pt")
+        os.system("konfai PREDICTION -y --cpu 0 --gpu 0 --num_workers 0 --config Checkpoints/HN/Prediction.yml --MODEL Checkpoints/HN/CV_0.pt:Checkpoints/HN/CV_1.pt:Checkpoints/HN/CV_2.pt:Checkpoints/HN/CV_3.pt:Checkpoints/HN/CV_4.pt")
     algorithm.save()
     
