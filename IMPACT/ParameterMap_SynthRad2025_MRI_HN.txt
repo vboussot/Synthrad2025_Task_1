@@ -1,0 +1,124 @@
+(MaximumNumberOfIterations 400)
+(NumberOfSpatialSamples 2000)
+(Transform "RecursiveBSplineTransform")
+(NumberOfResolutions 3)
+(FinalGridSpacingInPhysicalUnits 12)
+(FixedImagePyramid "FixedGenericImagePyramid")
+(MovingImagePyramid "MovingGenericImagePyramid")
+(FixedImagePyramidRescaleSchedule 1 1 1 1 1 1 1 1 1)
+(MovingImagePyramidRescaleSchedule 1 1 1 1 1 1 1 1 1)
+// (GridSpacingSchedule 10.000000 5.000000 2.000000 1.000000)
+
+
+(ImpactModelsPath0 "/Data/Models/MIND/R1D2.pt")
+(ImpactDimension0 3)
+(ImpactNumberOfChannels0 1)
+(ImpactPatchSize0 0 0 0)
+(ImpactVoxelSize0 6 6 6)
+(ImpactLayersMask0 "1")
+(ImpactSubsetFeatures0 32)
+(ImpactPCA0 0)
+(ImpactDistance0 "L1")
+(ImpactLayersWeight0 1)
+
+(ImpactModelsPath1 "/Data/Models/MIND/R1D2.pt")
+(ImpactDimension1 3)
+(ImpactNumberOfChannels1 1 )
+(ImpactPatchSize1 0 0 0)
+(ImpactVoxelSize1 3 3 3)
+(ImpactLayersMask1 "1")
+(ImpactSubsetFeatures1 32)
+(ImpactPCA1 0)
+(ImpactDistance1 "L1")
+(ImpactLayersWeight1 1)
+
+(ImpactModelsPath2 "/Data/Models/MIND/R1D2.pt")
+(ImpactDimension2 3)
+(ImpactNumberOfChannels2 1)
+(ImpactPatchSize2 0 0 0)
+(ImpactVoxelSize2 2 2 2)
+(ImpactLayersMask2 "1")
+(ImpactSubsetFeatures2 32)
+(ImpactPCA2 0)
+(ImpactDistance2 "L1")
+(ImpactLayersWeight2 1)
+
+(ImpactUseMixedPrecision "false")
+(ImpactFeaturesMapUpdateInterval -1)
+(ImpactWriteFeatureMaps "false")
+(ImpactMode "Static")
+(ImpactGPU 0)
+
+
+(Metric "Impact" "AdvancedMattesMutualInformation" )
+(Metric0Weight 1)
+(Metric2Weight 1)
+// imageTypes
+(FixedInternalImagePixelType "float")
+(MovingInternalImagePixelType "float")
+(UseDirectionCosines "true")
+
+// components
+(Registration "MultiMetricMultiResolutionRegistration")
+(BSplineTransformSplineOrder 3)
+(UseCyclicTransform "false")
+
+// transform
+(AutomaticTransformInitialization "false")
+(AutomaticTransformInitializationMethod "GeometricalCenter")
+(AutomaticScalesEstimation "true")
+(HowToCombineTransforms "Compose")
+
+
+// optimizer
+(Optimizer "AdaptiveStochasticGradientDescent")
+(MaximumNumberOfSamplingAttempts 8)
+(UseAdaptiveStepSizes "true")
+(UseMultiThreadingForMetrics "true")
+(ASGDParameterEstimationMethod "DisplacementDistribution")
+//(MaximumStepLength 0.6602)
+(SigmoidInitialTime 0.0)
+(NoiseCompensation "true")
+(NumberOfSamplesForExactGradient 4096)
+
+// automatic
+(AutomaticParameterEstimation "true")
+//(SP_alpha 1)
+//(SP_A 20.0)
+//(SP a 400)
+//(SigmoidMax 1.0)
+//(SigmoidMin -0.8)
+//(SigmoidScale 0.00000001)
+//(NumberOfGradientMeasurements 10)
+//(NumberOfJacobianMeasurements 1000)
+
+(FixedKernelBSplineOrder 3)
+(MovingKernelBSplineOrder 3)
+(CheckNumberOfSamples "true")
+(UseRelativeWeights "false")
+
+
+// several
+(WriteTransformParametersEachIteration "false")
+(WriteTransformParametersEachResolution "false")
+(ShowExactMetricValue "false")
+(ErodeFixedMask "false")
+(ErodeMovingMask "false")
+(UseBinaryFormatForTransformationParameters "false")
+
+// imageSampler
+(Interpolator "BSplineInterpolator")
+(ImageSampler "RandomCoordinate")
+(NewSamplesEveryIteration "true")
+(UseRandomSampleRegion "false")
+
+
+// interpolator and resampler
+(ResampleInterpolator "FinalBSplineInterpolator")
+(FinalBSplineInterpolationOrder 3)
+(BSplineInterpolationOrder 3)
+(Resampler "DefaultResampler")
+(WriteIterationInfo "false")
+(WriteResultImage "false")
+(DefaultPixelValue -1024)
+(ResultImageFormat "nii.gz")

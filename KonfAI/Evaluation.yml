@@ -1,0 +1,43 @@
+Evaluator:
+  metrics:
+    sCT:
+      targets_criterions:
+        CT;MASK:
+          criterions_loader:
+            MAE:
+              reduction: mean
+            PSNR:
+              dynamic_range: None
+            SSIM:
+              dynamic_range: None
+  Dataset:
+    groups_src:
+      ct_elastix:
+        groups_dest:
+          CT:
+            transforms:
+              TensorCast:
+                dtype: float32
+            isInput: true
+      sCT:
+        groups_dest:
+          sCT:
+            transforms:
+              TensorCast:
+                dtype: float32
+            isInput: true
+      mask:
+        groups_dest:
+          MASK:
+            transforms:
+              TensorCast:
+                dtype: uint8
+            isInput: true
+    subset: None
+    validation: None
+    filter: None
+    dataset_filenames:
+    - ../Data/raw_data/Train/Task_1/AB/:a:mha
+    - ./Predictions/Train/Task_1/Phase_1/UNetPP_34_MAE_SAM/AB/Dataset
+    num_workers: 4
+  train_name: Task_1/Phase_1/UNetPP_34_MAE_SAM/AB

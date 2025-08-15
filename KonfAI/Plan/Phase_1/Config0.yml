@@ -1,0 +1,157 @@
+Trainer:
+  Model:
+    classpath: UNetpp:UNetpp5
+    UNetpp5:
+      schedulers:
+        StepLR:
+          step_size: 10
+          gamma: 0.75
+          last_epoch: -1
+          verbose: deprecated
+          nb_step: 0
+      outputs_criterions:
+        Head:Tanh:
+          targets_criterions:
+            CT:
+              criterions_loader:
+                MAE:
+                  schedulers:
+                    Constant:
+                      nb_step: 0
+                      value: 1
+                  is_loss: true
+                  group: 0
+                  start: 0
+                  stop: None
+                  accumulation: false
+                  reduction: mean
+                IMPACTSynth:
+                  is_loss: true
+                  group: 0
+                  start: 0
+                  stop: None
+                  accumulation: false
+                  model_name: SAM2.1/Small_3_Layers.pt
+                  shape:
+                  - 0
+                  - 0
+                  in_channels: 3
+                  weights:
+                  - 1
+                  - 1
+                  - 1
+                  schedulers:
+                    Constant:
+                      nb_step: 0
+                      value: 1
+            CT;MASK:
+              criterions_loader:
+                MAE:
+                  schedulers:
+                    Constant:
+                      nb_step: 0
+                      value: 1
+                  is_loss: false
+                  group: 0
+                  start: 0
+                  stop: None
+                  accumulation: false
+                  reduction: mean
+      pretrained: false
+      Optimizer:
+        name: AdamW
+        lr: 0.001
+        betas:
+        - 0.9
+        - 0.999
+        eps: 1e-08
+        weight_decay: 0.001
+        amsgrad: false
+        maximize: false
+        foreach: None
+        capturable: false
+        differentiable: false
+        fused: None
+      nb_step: 0
+      outputsCriterions:
+        default:
+          targets_criterions:
+            default:
+              criterions_loader:
+                torch:
+                  schedulers:
+                    Constant:
+                      nb_step: 0
+                  is_loss: true
+                  group: 0
+                  start: 0
+                  stop: None
+                  accumulation: false
+  Dataset:
+    groups_src:
+      MASK:
+        groups_dest:
+          MASK:
+            transforms: None
+            patch_transforms: None
+            is_input: false
+      CT_ELASTIX:
+        groups_dest:
+          CT:
+            transforms: None
+            patch_transforms: None
+            is_input: false
+      MR_Standardized:
+        groups_dest:
+          MR:
+            transforms: None
+            patch_transforms: None
+            is_input: true
+    augmentations:
+      DataAugmentation_0:
+        data_augmentations:
+          Flip:
+            f_prob:
+            - 0
+            - 0.5
+            - 0.5
+            prob: 1
+        nb: 1
+    Patch:
+      patch_size:
+      - 1
+      - 320
+      - 320
+      overlap: None
+      mask: None
+      pad_value: -1
+      extend_slice: 4
+    subset: ~../Data/Validation/Task_1/Exclude.txt
+    shuffle: true
+    filter: None
+    dataset_filenames:
+    - ../Data/Dataset/Train/Task_1/AB:a:mha
+    - ../Data/Dataset/Train/Task_1/HN:a:mha
+    - ../Data/Dataset/Train/Task_1/TH:a:mha
+    inline_augmentations: true
+    use_cache: true
+    batch_size: 32
+    validation: ../Data/Validation/Task_1/CrossValidation_0.txt
+  train_name: Task_1/Phase_1/UNetPP_34_MAE_SAM/CrossValidation/CrossValidation_0
+  manual_seed: 32
+  epochs: 100
+  it_validation: 2500
+  autocast: false
+  gradient_checkpoints: None
+  gpu_checkpoints: None
+  ema_decay: 0
+  data_log:
+  - CT/IMAGES/5
+  - MR/IMAGES/5
+  - Head:Tanh/IMAGES/5
+  save_checkpoint_mode: ALL
+  EarlyStopping:
+    monitor: []
+    patience: 30
+    min_delta: 0.0
+    mode: min
