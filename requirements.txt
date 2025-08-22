@@ -4,5 +4,5 @@ scikit-learn
 numpy
 scipy
 python-dotenv
-konfai==1.2.4
+konfai==1.2.5
 segmentation_models_pytorch
