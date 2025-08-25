@@ -22,16 +22,6 @@ DEFAULT_REGION_PATH = Path("{}/region.json".format(INPUT_FOLDER))
 DEFAULT_MASK_PATH = Path("{}/images/body".format(INPUT_FOLDER))
 DEFAULT_OUTPUT_PATH = Path("{}/images/synthetic-ct".format(OUTPUT_FOLDER))
 DEFAULT_OUTPUT_FILE = Path("{}/results.json".format(OUTPUT_FOLDER))
-    
-
-def _preprocess(image: sitk.Image, mask: sitk.Image) -> sitk.Image:
-    data = sitk.GetArrayFromImage(image).astype(np.float32)
-    data_mask = sitk.GetArrayFromImage(mask)
-    data = (data - np.mean(data[data_mask == 1]))/np.std(data[data_mask == 1])
-    standardized_image = sitk.GetImageFromArray(data)
-    standardized_image.CopyInformation(image)
-    standardized_image_masked = sitk.Mask(standardized_image, mask, -2)
-    return sitk.Cast(standardized_image_masked, sitk.sitkFloat32)
 
 def _load_cases(folder: Path, file_loader: ImageLoader) -> DataFrame:
     cases = []
@@ -103,10 +93,9 @@ class SynthradAlgorithm():
             self.images_file_paths[image_name.name] = {}
             self.images_file_paths[image_name.name]["image"] = image_name
             mask, self.images_file_paths[image_name.name]["mask"] = _load_input_image(mask_pah, file_loader=self.file_loader)
-            mask = sitk.Cast(mask, sitk.sitkUInt8)
 
-            dataset.write(f"{region}/MR", image_name.name.split(".")[0], _preprocess(image, mask))
-            dataset.write(f"{region}/MASK", image_name.name.split(".")[0], mask)
+            dataset.write(f"{region}/MR", image_name.name.split(".")[0], image)
+            dataset.write(f"{region}/MASK", image_name.name.split(".")[0], sitk.Cast(mask, sitk.sitkUInt8))
 
     def save(self):
         _case_results = []
