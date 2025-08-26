@@ -112,17 +112,17 @@ Trainer:
       mask: None
       pad_value: -1
       extend_slice: 4
-    subset: ~../Data/Validation/Task_1/Exclude.txt
+    subset: ~./KonfAI/Validation_split/Elastix/Exclude.txt
     shuffle: true
     filter: None
     dataset_filenames:
-    - ../Data/Dataset/Train/Task_1/AB:a:mha
-    - ../Data/Dataset/Train/Task_1/TH:a:mha
+    - ./Dataset/Train/Task_1/AB:a:mha
+    - ./Dataset/Train/Task_1/TH:a:mha
     inline_augmentations: true
     use_cache: true
     batch_size: 32
-    validation: ../Data/Validation/Task_1/CrossValidation_3.txt
-  train_name: Task_1/Phase_2/UNetPP_34_MAE_SAM/CrossValidation/AB-TH/CrossValidation_3
+    validation: ./KonfAI/Validation_split/Elastix/CrossValidation_3.txt
+  train_name: Phase_2/AB-TH/CrossValidation_3
   manual_seed: 32
   epochs: 100
   it_validation: 2000
