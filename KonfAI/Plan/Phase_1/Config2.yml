@@ -73,20 +73,6 @@ Trainer:
         differentiable: false
         fused: None
       nb_step: 0
-      outputsCriterions:
-        default:
-          targets_criterions:
-            default:
-              criterions_loader:
-                torch:
-                  schedulers:
-                    Constant:
-                      nb_step: 0
-                  is_loss: true
-                  group: 0
-                  start: 0
-                  stop: None
-                  accumulation: false
   Dataset:
     groups_src:
       MASK:

@@ -21,9 +21,10 @@ COPY --chown=algorithm:algorithm requirements.txt /opt/algorithm/
 RUN python -m pip install --user -r requirements.txt
 
 COPY --chown=algorithm:algorithm run.py /opt/algorithm/
-
-COPY --chown=algorithm:algorithm Checkpoints /opt/algorithm/Checkpoints
+COPY --chown=algorithm:algorithm download.py /opt/algorithm/
 COPY --chown=algorithm:algorithm KonfAI/UNetpp.py /opt/algorithm/UNetpp.py
 COPY --chown=algorithm:algorithm KonfAI/UnNormalize.py /opt/algorithm/UnNormalize.py
+
+RUN python download.py
 
 ENTRYPOINT python -m run $0 $@
