@@ -13,6 +13,7 @@ Final predictions use **test-time augmentation** and **5-fold ensembling**, with
 Models were selected based on validation MAE.
 
 🏆 **3rd place overall**
+(Related leaderboard: [SynthRAD Task 1 leaderboard](https://synthrad2025.grand-challenge.org/evaluation/test-task-1-mri/leaderboard/)
 
 | Rank | MAE ↓             | PSNR ↑            | MS-SSIM ↑        | DICE ↑           | HD95 ↓           | Dose MAE photon ↓ | Dose MAE proton ↓ | DVH error photon ↓ | DVH error proton ↓ | GPR 2mm/2% photon ↑ | GPR 2mm/2% proton ↑ |
 |------|-------------------|-------------------|------------------|------------------|------------------|-------------------|-------------------|---------------------|---------------------|----------------------|----------------------|
