@@ -1,4 +1,6 @@
 [![Grand Challenge](https://img.shields.io/badge/Grand%20Challenge-SynthRad_2025-blue)](https://synthrad2025.grand-challenge.org/) [![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Synthrad_2025-orange)](https://huggingface.co/VBoussot/Synthrad2025) [![Poster](https://img.shields.io/badge/📌%20Poster-MICCAI%202025-blue)](./MICCAI_POSTER.pdf) [![Paper](https://img.shields.io/badge/📌%20Paper-BreizhCT-blue)](./BreizhCT_Paper.pdf)
+[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-IMPACT-orange)](https://huggingface.co/datasets/VBoussot/synthrad2025-impact-registration)
+
 
 # SynthRAD2025 – Task 1 (🥉 3rd place)
 
@@ -20,6 +22,32 @@ Models were selected based on validation MAE.
 | Rank | MAE ↓             | PSNR ↑            | MS-SSIM ↑        | DICE ↑           | HD95 ↓           | Dose MAE photon ↓ | Dose MAE proton ↓ | DVH error photon ↓ | DVH error proton ↓ | GPR 2mm/2% photon ↑ | GPR 2mm/2% proton ↑ |
 |------|-------------------|-------------------|------------------|------------------|------------------|-------------------|-------------------|---------------------|---------------------|----------------------|----------------------|
 | 3    | 67.241 ± 22.874 (3)| 29.957 ± 2.658 (2)| 0.935 ± 0.046 (2)| 0.737 ± 0.117 (4)| 7.512 ± 4.070 (4)| 0.006 ± 0.009 (3) | 0.027 ± 0.067 (5) | 0.013 ± 0.031 (3)   | 0.067 ± 0.031 (3)   | 98.880 ± 4.556 (1)   | 82.191 ± 10.164 (3)  |
+
+---
+
+## 📐 Registration (IMPACT vs Baseline)
+
+Accurate sCT synthesis depends on good **inter-modal alignment**. We provide **precomputed IMPACT registrations** (MR↔CT and CBCT↔CT) to ensure consistent training/evaluation.
+
+### IMPACT setup used in this work
+The following IMPACT configuration was used for **Task 1 (MR→CT synthesis)**:
+- **Feature extractor:** TS/M730  
+- **Layers:** 7-Layers (**high-level features**)  
+- **Mode:** **Static** + **MIND**  
+- **Multi-resolution:** 3-level pyramid  
+- **Final B-spline grid spacing:** **10 mm**
+
+### Why it matters
+
+Supervised image synthesis relies on accurate alignment between input and target images.  
+**IMPACT-based registration provides better anatomical correspondence** than the baseline (Elastix-MI), correcting local misalignments.  
+On the **local validation set** (75 patients), IMPACT reduced MAE from **63.37 → 60.28 HU**, with higher PSNR and SSIM, indicating sharper and more realistic CT synthesis.  
+On the **public validation** (148 patients), Elastix-MI achieved a lower MAE (**68.20 vs 75.82 HU**) due to **evaluation pipeline bias**, since leaderboard data are aligned with Elastix-MI.  
+These results confirm that registration quality directly influences both supervision and reported synthesis performance.
+
+
+### Get the registrations
+- 👉 **Hugging Face (prealigned pairs):** https://huggingface.co/datasets/VBoussot/synthrad2025-impact-registration
 
 ---
 
