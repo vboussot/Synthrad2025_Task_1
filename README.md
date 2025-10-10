@@ -39,11 +39,12 @@ The following IMPACT configuration was used for **Task 1 (MR→CT synthesis)**:
 
 ### Why it matters
 
-Supervised image synthesis relies on accurate alignment between input and target images.  
-**IMPACT-based registration provides better anatomical correspondence** than the baseline (Elastix-MI), correcting local misalignments.  
-On the **local validation set** (75 patients), IMPACT reduced MAE from **63.37 → 60.28 HU**, with higher PSNR and SSIM, indicating sharper and more realistic CT synthesis.  
-On the **public validation** (148 patients), Elastix-MI achieved a lower MAE (**68.20 vs 75.82 HU**) due to **evaluation pipeline bias**, since leaderboard data are aligned with Elastix-MI.  
-These results confirm that registration quality directly influences both supervision and reported synthesis performance.
+- 🧭 **Alignment quality drives supervised sCT performance**
+- 🧩 **IMPACT** → better anatomical alignment than **Elastix-MI**
+  - Local set (75 pts): **MAE 63.37 → 60.28 HU**, ↑ PSNR / ↑ SSIM  
+  - Sharper, more realistic CTs
+- 📊 Public set (148 pts): **Elastix-MI lower MAE (68.20 vs 75.82 HU)**  
+  → due to **pipeline bias** (leaderboard uses Elastix registrations)
 
 
 ### Get the registrations
