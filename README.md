@@ -125,6 +125,11 @@ Your directory must look like this:
     ├── UnNormalize.py
     └── Prediction.yml
 
+Copy `UNetpp.py` and `UnNormalize.py` from:
+
+    KonfAI/UNetpp.py 
+    KonfAI/UnNormalize.py 
+    
 Copy `Prediction.yml` from:
 
     Task_1/AB-TH/Prediction.yml
