@@ -114,18 +114,34 @@ Your dataset should be structured as follows:
 │   └── ...
 ```
 
+## Required Folder Structure Before Inference
+
+Your directory must look like this:
+
+    .
+    ├── Dataset/
+    ├── Task_1/
+    ├── UNetpp.py
+    ├── UnNormalize.py
+    └── Prediction.yml
+
+Copy `Prediction.yml` from:
+
+    Task_1/AB-TH/Prediction.yml
+
+(Use the HN version if running Head & Neck.)
+
 ### 3. Run inference (AB-TH example)
 
 ```bash
 konfai PREDICTION -y --gpu 0 \
-  --MODEL Task_1/AB-TH/CV_0.pt:Task_1/AB-TH/CV_1.pt:Task_1/AB-TH/CV_2.pt:Task_1/AB-TH/CV_3.pt:Task_1/AB-TH/CV_4.pt \
-  --config Task_1/AB-TH/Prediction.yml
+  --models Task_1/AB-TH/CV_0.pt Task_1/AB-TH/CV_1.pt Task_1/AB-TH/CV_2.pt Task_1/AB-TH/CV_3.pt Task_1/AB-TH/CV_4.pt
 ```
 
 For **HN**, replace the path accordingly:
 
 ```bash
---MODEL Task_1/HN/CV_0.pt:Task_1/HN/CV_1.pt:Task_1/HN/CV_2.pt:Task_1/HN/CV_3.pt:Task_1/HN/CV_4.pt  --config Task_1/HN/Prediction.yml
+--models Task_1/HN/CV_0.pt Task_1/HN/CV_1.pt Task_1/HN/CV_2.pt Task_1/HN/CV_3.pt Task_1/HN/CV_4.pt
 ```
 
 ---
