@@ -1,7 +1,6 @@
 [![Grand Challenge](https://img.shields.io/badge/Grand%20Challenge-SynthRad_2025-blue)](https://synthrad2025.grand-challenge.org/) [![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Synthrad_2025-orange)](https://huggingface.co/VBoussot/Synthrad2025) [![Poster](https://img.shields.io/badge/📌%20Poster-MICCAI%202025-blue)](./MICCAI_POSTER.pdf) [![Paper](https://img.shields.io/badge/📌%20Paper-BreizhCT-blue)](https://arxiv.org/abs/2510.21358) 
 [![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-IMPACT-orange)](https://huggingface.co/datasets/VBoussot/synthrad2025-impact-registration)
 
-
 # SynthRAD2025 – Task 1 (🥉 3rd place)
 
 This repository provides everything needed to build the Docker image and reproduce our solution ranked **3rd** in the **SynthRAD 2025 – Task 1** challenge on synthetic CT generation from MRI.
@@ -54,10 +53,13 @@ The following IMPACT configuration was used for **Task 1 (MR→CT synthesis)**:
 
 ## 🚀 Inference instructions
 
+For more implementation details and a minimal working example, see the KonfAI synthesis example:  
+https://github.com/vboussot/KonfAI/tree/main/examples/Synthesis
+
 ### 1. Install KonfAI
 
 ```bash
-pip install konfai
+pip install konfai==1.5.4
 ```
 
 ---
@@ -175,7 +177,7 @@ Fine-tune the Phase 1 model separately for each anatomical region.
 ```bash
 konfai RESUME -y --gpu 0 \
   --config KonfAI/Plan/Phase_2/AB-TH/Config0.yml \
-  --MODEL Phase1.pt
+  --model Phase1.pt
 ```
 
 #### Head & Neck (HN) — Fold 0 example:
@@ -183,7 +185,7 @@ konfai RESUME -y --gpu 0 \
 ```bash
 konfai RESUME -y --gpu 0 \
   --config KonfAI/Plan/Phase_2/HN/Config0.yml \
-  --MODEL Phase1.pt
+  --model Phase1.pt
 ```
 
 > Replace `Phase1.pt` with the checkpoint from Phase 1 (best model from Fold 0).
