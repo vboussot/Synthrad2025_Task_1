@@ -8,11 +8,13 @@ files = [
     "Task_1/AB-TH/CV_2.pt",
     "Task_1/AB-TH/CV_3.pt",
     "Task_1/AB-TH/CV_4.pt",
+    "Task_1/AB-TH/Prediction.yml",
     "Task_1/HN/CV_0.pt",
     "Task_1/HN/CV_1.pt",
     "Task_1/HN/CV_2.pt",
     "Task_1/HN/CV_3.pt",
     "Task_1/HN/CV_4.pt",
+    "Task_1/HN/Prediction.yml"
 ]
 
 for file in files:

@@ -25,6 +25,6 @@ COPY --chown=algorithm:algorithm download.py /opt/algorithm/
 COPY --chown=algorithm:algorithm KonfAI/UNetpp.py /opt/algorithm/UNetpp.py
 COPY --chown=algorithm:algorithm KonfAI/UnNormalize.py /opt/algorithm/UnNormalize.py
 
-RUN python download.py
+RUN python download.py 
 
-ENTRYPOINT python -m run $0 $@
+ENTRYPOINT ["python", "-m", "run"]
