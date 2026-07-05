@@ -25,17 +25,14 @@ Trainer:
                   stop: None
                   accumulation: false
                   reduction: mean
-                IMPACTSynth:
+                SAM_Perceptual:
                   is_loss: true
                   group: 0
                   start: 0
                   stop: None
                   accumulation: false
-                  model_name: SAM2.1/Small_3_Layers.pt
-                  shape:
-                  - 0
-                  - 0
-                  in_channels: 3
+                  train: true
+                  model_name: SAM2.1_Small.pt
                   weights:
                   - 1
                   - 1
@@ -84,7 +81,8 @@ Trainer:
       CT_ELASTIX:
         groups_dest:
           CT:
-            transforms: None
+            transforms:
+              Statistics: {}
             patch_transforms: None
             is_input: false
       MR_Standardized:
@@ -120,7 +118,7 @@ Trainer:
     - ./Dataset/Train/Task_1/TH:a:mha
     inline_augmentations: true
     use_cache: true
-    batch_size: 32*
+    batch_size: 32
     validation: ./KonfAI/Validation_split/Elastix/CrossValidation_2.txt
   train_name: Phase_2/AB-TH/CrossValidation_2
   manual_seed: 32

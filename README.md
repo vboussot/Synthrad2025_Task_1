@@ -59,7 +59,7 @@ https://github.com/vboussot/KonfAI/tree/main/examples/Synthesis
 ### 1. Install KonfAI
 
 ```bash
-pip install konfai==1.5.4
+pip install konfai[itk]==1.5.9
 ```
 
 ---
@@ -116,43 +116,50 @@ Your dataset should be structured as follows:
 │   └── ...
 ```
 
-## Required Folder Structure Before Inference
+### 4. Run inference
 
-Your directory must look like this:
+Copy `UNetpp.py` and `UnNormalize.py` next to your working directory — the prediction config
+references them through the `UNetpp:` and `UnNormalize:` classpaths:
+
+```bash
+cp KonfAI/UNetpp.py KonfAI/UnNormalize.py .
+```
+
+Your directory should then look like this:
 
     .
     ├── Dataset/
-    ├── Task_1/
+    ├── Task_1/            # weights + Prediction.yml (from Hugging Face)
     ├── UNetpp.py
-    ├── UnNormalize.py
-    └── Prediction.yml
+    └── UnNormalize.py
 
-Copy `UNetpp.py` and `UnNormalize.py` from:
-
-    KonfAI/UNetpp.py 
-    KonfAI/UnNormalize.py 
-    
-Copy `Prediction.yml` from:
-
-    Task_1/AB-TH/Prediction.yml
-
-(Use the HN version if running Head & Neck.)
-
-### 3. Run inference (AB-TH example)
+**AB-TH example:**
 
 ```bash
 konfai PREDICTION -y --gpu 0 \
+  --config Task_1/AB-TH/Prediction.yml \
   --models Task_1/AB-TH/CV_0.pt Task_1/AB-TH/CV_1.pt Task_1/AB-TH/CV_2.pt Task_1/AB-TH/CV_3.pt Task_1/AB-TH/CV_4.pt
 ```
 
-For **HN**, replace the path accordingly:
+For **Head & Neck**, use the HN config and weights:
 
 ```bash
---models Task_1/HN/CV_0.pt Task_1/HN/CV_1.pt Task_1/HN/CV_2.pt Task_1/HN/CV_3.pt Task_1/HN/CV_4.pt
+konfai PREDICTION -y --gpu 0 \
+  --config Task_1/HN/Prediction.yml \
+  --models Task_1/HN/CV_0.pt Task_1/HN/CV_1.pt Task_1/HN/CV_2.pt Task_1/HN/CV_3.pt Task_1/HN/CV_4.pt
 ```
+
+Predictions are written to `./Predictions/Out/Dataset/<case>/sCT.mha`.
+
+> The Docker pipeline (`run.py`) performs exactly these steps automatically, routing each case to the
+> AB-TH or HN model family based on the anatomical region.
 
 ---
 ## 🛠️ How to Reproduce Training
+
+> Training additionally requires TensorBoard: `pip install konfai[itk,tensorboard]==1.5.9`.
+> The perceptual loss is `SAM_Perceptual` (SAM2.1 features); the `Statistics` transform on the CT
+> target group feeds it the required intensity statistics.
 
 Training is performed in **two phases**:
 

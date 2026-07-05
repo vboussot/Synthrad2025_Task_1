@@ -95,7 +95,7 @@ def validation_task_1(dataset: Dataset):
             indices_regions_centers.append(list(np.random.permutation([n for n in names if n.startswith(f"1{region}{center}")])))
     
     for i in range(n_folds):
-        if os.path.exists(f"./Validation/Task_1/CrossValidation_{i}.txt")
+        if os.path.exists(f"./Validation/Task_1/CrossValidation_{i}.txt"):
             os.remove(f"./Validation/Task_1/CrossValidation_{i}.txt")
     
     for indices in indices_regions_centers:
